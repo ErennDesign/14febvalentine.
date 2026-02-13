@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sen | 14 Şubat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="sparkle-bg">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="bg-daisies" aria-hidden="true">
+        <span class="daisy">🌼</span><span class="daisy">🌼</span><span class="daisy">🌼</span>
+        <span class="daisy">🌼</span><span class="daisy">🌼</span><span class="daisy">🌼</span>
+        <span class="daisy">🌼</span><span class="daisy">🌼</span><span class="daisy">🌼</span>
+    </div>
+    <div class="bg-butterflies" aria-hidden="true">
+        <span class="butterfly">🦋</span><span class="butterfly">🦋</span><span class="butterfly">🦋</span>
+        <span class="butterfly">🦋</span><span class="butterfly">🦋</span><span class="butterfly">🦋</span>
+    </div>
+
+    <div class="container">
+        <!-- EKRAN 0: GİRİŞ -->
+        <div id="start-screen" class="screen active">
+            <div class="start-photo-wrap">
+                <img src="sevgili.png" alt="" class="start-photo" />
+                <span class="start-photo-overlay"></span>
+            </div>
+            <div class="start-content">
+                <h1 class="game-title">Sen</h1>
+                <p class="intro-text">
+                    Bu yol senin yolun aşkım. Önünde iki yol açılacak, her adımda seçimi sen yapacaksın. Yolları sen seçeceksin.
+                </p>
+                <div class="start-box">
+                    <button class="btn btn-start" onclick="showScreen('choice-1-screen')">Oyuna Başla</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EKRAN 1: 1. SORU -->
+        <div id="choice-1-screen" class="screen choice-screen" data-q="1">
+            <div class="choice-photo-wrap">
+                <img src="sevgili2.png" alt="" class="choice-photo" />
+                <span class="choice-photo-overlay"></span>
+            </div>
+            <div class="choice-content">
+                <h2 class="choice-title">1. Soru</h2>
+                <p class="choice-desc">Bu yolda benimle yürür müsün?</p>
+                <div class="choice-buttons">
+                    <button type="button" class="btn btn-path-a" data-option="a" onclick="choose(1, 'a')">Evet</button>
+                    <button type="button" class="btn btn-path-b" data-option="b" onclick="choose(1, 'b')">Hayır</button>
+                </div>
+                <div class="choice-message" hidden>
+                    <p class="choice-message-text"></p>
+                    <button type="button" class="btn btn-devam" onclick="showScreen('choice-2-screen')">Devam</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EKRAN 2: 2. SORU -->
+        <div id="choice-2-screen" class="screen choice-screen" data-q="2">
+            <div class="choice-photo-wrap">
+                <img src="sevgili2.png" alt="" class="choice-photo" />
+                <span class="choice-photo-overlay"></span>
+            </div>
+            <div class="choice-content">
+                <h2 class="choice-title">2. Soru</h2>
+                <p class="choice-desc">Birini seç.</p>
+                <div class="choice-buttons">
+                    <button type="button" class="btn btn-path-a" data-option="a" onclick="choose(2, 'a')">Ben</button>
+                    <button type="button" class="btn btn-path-b" data-option="b" onclick="choose(2, 'b')">Başkası</button>
+                </div>
+                <div class="choice-message" hidden>
+                    <p class="choice-message-text"></p>
+                    <button type="button" class="btn btn-devam" onclick="showScreen('choice-3-screen')">Devam</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EKRAN 3: 3. SORU -->
+        <div id="choice-3-screen" class="screen choice-screen" data-q="3">
+            <div class="choice-photo-wrap">
+                <img src="sevgili2.png" alt="" class="choice-photo" />
+                <span class="choice-photo-overlay"></span>
+            </div>
+            <div class="choice-content">
+                <h2 class="choice-title">3. Soru</h2>
+                <p class="choice-desc">Şuan ne yemek isterdin?</p>
+                <div class="choice-buttons">
+                    <button type="button" class="btn btn-path-a" data-option="a" onclick="choose(3, 'a')">Tavuk dürüm</button>
+                    <button type="button" class="btn btn-path-b" data-option="b" onclick="choose(3, 'b')">Karadeniz Usulü Nar Ekşili Karamelize Soğanlı İsli Kuzu Kaburga Sarma</button>
+                </div>
+                <div class="choice-message" hidden>
+                    <p class="choice-message-text"></p>
+                    <button type="button" class="btn btn-devam" onclick="showScreen('choice-4-screen')">Devam</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EKRAN 4: 4. SORU -->
+        <div id="choice-4-screen" class="screen choice-screen" data-q="4">
+            <div class="choice-photo-wrap">
+                <img src="sevgili2.png" alt="" class="choice-photo" />
+                <span class="choice-photo-overlay"></span>
+            </div>
+            <div class="choice-content">
+                <h2 class="choice-title">4. Soru</h2>
+                <p class="choice-desc">Beni seviyor musun?</p>
+                <div class="choice-buttons">
+                    <button type="button" class="btn btn-path-a" data-option="a" onclick="choose(4, 'a')">Evet</button>
+                    <button type="button" class="btn btn-path-b" data-option="b" onclick="choose(4, 'b')">Hayır</button>
+                </div>
+                <div class="choice-message" hidden>
+                    <p class="choice-message-text"></p>
+                    <button type="button" class="btn btn-devam" onclick="showScreen('choice-5-screen')">Devam</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EKRAN 5: 5. SORU -->
+        <div id="choice-5-screen" class="screen choice-screen" data-q="5">
+            <div class="choice-photo-wrap">
+                <img src="sevgili2.png" alt="" class="choice-photo" />
+                <span class="choice-photo-overlay"></span>
+            </div>
+            <div class="choice-content">
+                <h2 class="choice-title">5. Soru</h2>
+                <p class="choice-desc">Tüm yollar değişse bile, beni seçer misin?</p>
+                <div class="choice-buttons">
+                    <button type="button" class="btn btn-path-a" data-option="a" onclick="choose(5, 'a')">Evet</button>
+                    <button type="button" class="btn btn-path-b" data-option="b" onclick="choose(5, 'b')">Hayır</button>
+                </div>
+                <div class="choice-message" hidden>
+                    <p class="choice-message-text"></p>
+                    <button type="button" class="btn btn-devam" onclick="showScreen('finale-screen')">Devam</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EKRAN: FİNALE (siyah ekran + yazı + Tıkla) -->
+        <div id="finale-screen" class="screen finale-screen">
+            <div class="finale-text-wrap">
+                <p class="finale-text">Hangi yolu seçersen seç...<br>Ben seni seçtim.<br><br>Günümüz kutlu olsun.</p>
+                <button type="button" class="btn btn-tikla" onclick="showFinalePhoto()">Tıkla</button>
+            </div>
+        </div>
+
+        <!-- EKRAN: FİNALE FOTO (sevgilison.png) -->
+        <div id="finale-photo-screen" class="screen finale-photo-screen">
+            <div class="finale-photo-wrap">
+                <img src="sevgilison.png" alt="" class="finale-photo" />
+                <span class="finale-photo-overlay"></span>
+            </div>
+            <div class="finale-photo-content">
+                <button type="button" class="btn btn-restart" onclick="showScreen('start-screen')">Başa Dön</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

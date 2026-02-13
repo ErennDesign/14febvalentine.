@@ -1,0 +1,489 @@
+/* ===== Sen - Yol Seçme Oyunu ===== */
+/* Pixel art karakter • İki yol • Seçimler */
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+:root {
+  --brown-dark: #5d4037;
+  --brown-main: #8d6e63;
+  --brown-light: #bcaaa4;
+  --brown-cream: #efebe9;
+  --bordo: #722f37;
+  --daisy-white: #fffde7;
+  --sparkle: #fff9c4;
+  --sky-light: #e3f2fd;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(165deg, var(--brown-cream) 0%, #e8ddd5 35%, var(--brown-light) 70%, var(--brown-main) 100%);
+  color: var(--brown-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.sparkle-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.sparkle-bg span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--sparkle);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--daisy-white), 0 0 20px rgba(255, 235, 59, 0.4);
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.sparkle-bg span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+.sparkle-bg span:nth-child(2) { left: 25%; top: 60%; animation-delay: 0.5s; }
+.sparkle-bg span:nth-child(3) { left: 45%; top: 15%; animation-delay: 1s; }
+.sparkle-bg span:nth-child(4) { left: 70%; top: 45%; animation-delay: 0.3s; }
+.sparkle-bg span:nth-child(5) { left: 85%; top: 75%; animation-delay: 1.2s; }
+.sparkle-bg span:nth-child(6) { left: 15%; top: 80%; animation-delay: 0.8s; }
+.sparkle-bg span:nth-child(7) { left: 90%; top: 25%; animation-delay: 0.2s; }
+.sparkle-bg span:nth-child(8) { left: 55%; top: 85%; animation-delay: 1.5s; }
+
+/* Arka plan: papatyalar */
+.bg-daisies {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-daisies .daisy {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0.5;
+  animation: daisyFloat 5s ease-in-out infinite;
+}
+
+.bg-daisies .daisy:nth-child(1) { left: 5%; top: 12%; animation-delay: 0s; }
+.bg-daisies .daisy:nth-child(2) { left: 18%; top: 75%; animation-delay: 0.8s; }
+.bg-daisies .daisy:nth-child(3) { left: 35%; top: 25%; animation-delay: 1.2s; }
+.bg-daisies .daisy:nth-child(4) { left: 55%; top: 65%; animation-delay: 0.3s; }
+.bg-daisies .daisy:nth-child(5) { left: 72%; top: 18%; animation-delay: 1.5s; }
+.bg-daisies .daisy:nth-child(6) { left: 88%; top: 55%; animation-delay: 0.6s; }
+.bg-daisies .daisy:nth-child(7) { left: 12%; top: 45%; animation-delay: 1s; }
+.bg-daisies .daisy:nth-child(8) { left: 78%; top: 82%; animation-delay: 0.2s; }
+.bg-daisies .daisy:nth-child(9) { left: 42%; top: 88%; animation-delay: 1.3s; }
+
+@keyframes daisyFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+  50% { transform: translateY(-8px) rotate(5deg); opacity: 0.7; }
+}
+
+/* Arka plan: kelebekler */
+.bg-butterflies {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-butterflies .butterfly {
+  position: absolute;
+  font-size: 1.6rem;
+  opacity: 0.6;
+  animation: butterflyFly 6s ease-in-out infinite;
+}
+
+.bg-butterflies .butterfly:nth-child(1) { left: 8%; top: 22%; animation-delay: 0s; }
+.bg-butterflies .butterfly:nth-child(2) { left: 28%; top: 68%; animation-delay: 1s; }
+.bg-butterflies .butterfly:nth-child(3) { left: 50%; top: 15%; animation-delay: 2s; }
+.bg-butterflies .butterfly:nth-child(4) { left: 75%; top: 60%; animation-delay: 0.5s; }
+.bg-butterflies .butterfly:nth-child(5) { left: 90%; top: 30%; animation-delay: 1.5s; }
+.bg-butterflies .butterfly:nth-child(6) { left: 15%; top: 85%; animation-delay: 2.5s; }
+
+@keyframes butterflyFly {
+  0%, 100% { transform: translate(0, 0) rotate(-5deg); }
+  25% { transform: translate(10px, -12px) rotate(5deg); }
+  50% { transform: translate(-5px, -20px) rotate(-3deg); }
+  75% { transform: translate(8px, -10px) rotate(4deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  width: 90%;
+  padding: 2rem;
+  text-align: center;
+  background: rgba(239, 235, 233, 0.92);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(93, 64, 55, 0.18), 0 0 0 1px rgba(139, 110, 99, 0.15);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.container:has(.choice-screen.active) {
+  background: transparent;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.screen {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.screen.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ----- ANA EKRAN: Fotoğraf tam arka plan, yazılar üstte ----- */
+#start-screen {
+  position: relative;
+  margin: -2rem;
+  padding: 2rem;
+  min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+#start-screen.active {
+  display: flex;
+}
+
+.start-photo-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.start-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.start-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 45%, transparent 70%);
+  pointer-events: none;
+}
+
+.start-content {
+  position: relative;
+  z-index: 1;
+  padding-top: 2rem;
+}
+
+#start-screen .game-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+#start-screen .intro-text {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 1.5rem;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+
+#start-screen .start-box {
+  margin-top: 0.25rem;
+}
+
+.btn {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-start {
+  background: linear-gradient(135deg, var(--bordo), #8b3a42);
+  color: white;
+  font-size: 1.1rem;
+  padding: 1rem 2.25rem;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(114, 47, 55, 0.35);
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(114, 47, 55, 0.45);
+}
+
+/* ----- SEÇİM EKRANLARI (1–5): Her biri ayrı ekran, foto arka plan ----- */
+.choice-screen {
+  position: relative;
+  margin: -2rem;
+  padding: 2rem;
+  min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 114%;
+  background: #3d332e;
+}
+
+.choice-photo-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #3d332e;
+}
+
+.choice-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background: #3d332e;
+}
+
+.choice-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 45%, transparent 70%);
+  pointer-events: none;
+}
+
+.choice-content {
+  position: relative;
+  z-index: 1;
+  padding-top: 2rem;
+}
+
+.choice-title {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.choice-desc {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 1.25rem;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+}
+
+.choice-buttons,
+.choice-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.choice-message {
+  margin-top: 0.5rem;
+}
+
+.choice-message-text {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.98);
+  margin-bottom: 1rem;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  line-height: 1.5;
+}
+
+.btn-devam {
+  background: linear-gradient(135deg, var(--brown-light), var(--brown-main));
+  color: white;
+  padding: 0.9rem 1.8rem;
+  border-radius: 16px;
+}
+
+.btn-devam:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(93, 64, 55, 0.4);
+}
+
+/* Yanlış seçenek: buton kaçar */
+.btn.run-away {
+  animation: runAway 0.6s ease-out forwards;
+  pointer-events: none !important;
+}
+
+@keyframes runAway {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(120%, -50%); opacity: 0; }
+}
+
+.btn-path-a {
+  background: linear-gradient(135deg, var(--brown-light), var(--brown-main));
+  color: white;
+  box-shadow: 0 4px 14px rgba(93, 64, 55, 0.3);
+}
+
+.btn-path-a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(93, 64, 55, 0.4);
+}
+
+.btn-path-b {
+  background: linear-gradient(135deg, #a67c52, var(--brown-dark));
+  color: white;
+  box-shadow: 0 4px 14px rgba(93, 64, 55, 0.3);
+}
+
+.btn-path-b:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(93, 64, 55, 0.4);
+}
+
+.btn-restart {
+  background: linear-gradient(135deg, var(--brown-main), var(--brown-dark));
+  color: white;
+  padding: 0.9rem 1.8rem;
+  border-radius: 16px;
+}
+
+.btn-restart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(93, 64, 55, 0.4);
+}
+
+/* ----- FİNALE: Siyah ekran + yazı + Tıkla ----- */
+.finale-screen {
+  position: relative;
+  margin: -2rem;
+  padding: 2rem;
+  min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 114%;
+  background: #000;
+}
+
+.finale-text-wrap {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+}
+
+.finale-text {
+  font-size: 1.25rem;
+  color: #fff;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.btn-tikla {
+  background: linear-gradient(135deg, var(--brown-main), var(--brown-dark));
+  color: white;
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  border-radius: 20px;
+}
+
+.btn-tikla:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(93, 64, 55, 0.5);
+}
+
+/* ----- FİNALE FOTO: sevgilison.png ----- */
+.finale-photo-screen {
+  position: relative;
+  margin: -2rem;
+  padding: 2rem;
+  min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 114%;
+  background: #000;
+}
+
+.finale-photo-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.finale-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.finale-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.finale-photo-content {
+  position: relative;
+  z-index: 1;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.container:has(.finale-screen.active),
+.container:has(#finale-photo-screen.active) {
+  background: #000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 500px) {
+  .container { padding: 1.5rem; }
+  .game-title { font-size: 2rem; }
+  .path { max-width: 130px; height: 80px; }
+}
